@@ -1,0 +1,97 @@
+local Player = game:GetService("Players").LocalPlayer
+local GUI = Player:WaitForChild("PlayerGui")
+
+task.wait(2)
+
+-- Обновляем текст в MagicHealth
+GUI.ScreenGui.MagicHealth.TextLabel.Text = "SUB-ZERO SLASH STORM"
+GUI.ScreenGui.MagicHealth.Health.Bar.Bar.ImageColor3 = Color3.new(0, 228, 255)
+
+-- Создаем GUI для бейджа, если его нет
+local ScreenGui = GUI:FindFirstChild("CustomBadgeGui") or Instance.new("ScreenGui")
+ScreenGui.Name = "CustomBadgeGui"
+ScreenGui.Parent = GUI
+
+-- Определяем базовую позицию
+local baseOffset = -110
+local badgeSpacing = 62 -- Расстояние между бейджами
+
+-- Поиск последнего бейджа
+local lastBadge
+for _, child in ipairs(ScreenGui:GetChildren()) do
+    if child:IsA("Frame") and child.Name == "BadgeFrame" then
+        lastBadge = child
+    end
+end
+
+-- Если есть активные бейджи, ставим новый выше, иначе используем стандартное положение
+local newBadgeOffset = lastBadge and (lastBadge.Position.Y.Offset - badgeSpacing) or baseOffset
+
+-- Фрейм уведомления
+local BadgeFrame = Instance.new("Frame")
+BadgeFrame.Name = "BadgeFrame"
+BadgeFrame.Size = UDim2.new(0, 220, 0, 60)
+BadgeFrame.Position = UDim2.new(1, 10, 1, newBadgeOffset)
+BadgeFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+BadgeFrame.BackgroundTransparency = 0.5
+BadgeFrame.BorderSizePixel = 0
+BadgeFrame.Parent = ScreenGui
+
+-- Легкое скругление углов
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(0, 5)
+UICorner.Parent = BadgeFrame
+
+-- Градиент
+local UIGradient = Instance.new("UIGradient")
+UIGradient.Rotation = 90
+UIGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(20, 20, 20)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 0))
+}
+UIGradient.Parent = BadgeFrame
+
+-- Иконка бейджа
+local Image = Instance.new("ImageLabel")
+Image.Size = UDim2.new(0, 40, 0, 40)
+Image.Position = UDim2.new(0, 10, 0.5, -20)
+Image.Image = "rbxassetid://80617699532625"
+Image.BackgroundTransparency = 1
+Image.Parent = BadgeFrame
+
+-- Текст бейджа
+local TextLabel = Instance.new("TextLabel")
+TextLabel.Size = UDim2.new(1, -60, 1, 0)
+TextLabel.Position = UDim2.new(0, 60, 0, 0)
+TextLabel.Text = "SUB-ZERO"
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextSize = 14
+TextLabel.BackgroundTransparency = 1
+TextLabel.Font = Enum.Font.Gotham
+TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+TextLabel.Parent = BadgeFrame
+
+-- Подзаголовок "Awarded!"
+local SubText = Instance.new("TextLabel")
+SubText.Size = UDim2.new(1, -60, 0, 18)
+SubText.Position = UDim2.new(0, 60, 0, 32)
+SubText.Text = "Made by KeyToWxn"
+SubText.TextColor3 = Color3.fromRGB(180, 180, 180)
+SubText.TextSize = 12
+SubText.BackgroundTransparency = 1
+SubText.Font = Enum.Font.Gotham
+SubText.TextXAlignment = Enum.TextXAlignment.Left
+SubText.Parent = BadgeFrame
+
+-- Анимация появления
+BadgeFrame.Position = UDim2.new(1, 10, 1, newBadgeOffset)
+BadgeFrame:TweenPosition(UDim2.new(1, -230, 1, newBadgeOffset), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.5, true)
+
+-- Ожидание перед исчезновением
+wait(3)
+
+-- Анимация исчезновения
+BadgeFrame:TweenPosition(UDim2.new(1, 10, 1, newBadgeOffset), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.5, true)
+wait(0.5)
+
+BadgeFrame:Destroy()
