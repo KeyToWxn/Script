@@ -3,7 +3,7 @@ local GUI = Player:WaitForChild("PlayerGui")
 
 -- Обновляем текст в MagicHealth
 GUI.ScreenGui.MagicHealth.TextLabel.Text = "NO MORE GAMES" 
-GUI.ScreenGui.MagicHealth.Health.Bar.Bar.ImageColor3 = Color3.new(0, 228, 255)
+GUI.ScreenGui.MagicHealth.Health.Bar.Bar.ImageColor3 = Color3.new(100, 0, 0)
 
 -- Создаем GUI для бейджа, если его нет
 local ScreenGui = GUI:FindFirstChild("CustomBadgeGui") or Instance.new("ScreenGui")
