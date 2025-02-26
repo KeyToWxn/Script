@@ -2,7 +2,7 @@ local Player = game:GetService("Players").LocalPlayer
 local GUI = Player:WaitForChild("PlayerGui")
 
 -- Обновляем текст в MagicHealth
-GUI.ScreenGui.MagicHealth.TextLabel.Text = "PERMAFROST"
+GUI.ScreenGui.MagicHealth.TextLabel.Text = "NO MORE GAMES" 
 GUI.ScreenGui.MagicHealth.Health.Bar.Bar.ImageColor3 = Color3.new(0, 228, 255)
 
 -- Создаем GUI для бейджа, если его нет
@@ -53,7 +53,7 @@ UIGradient.Parent = BadgeFrame
 local Image = Instance.new("ImageLabel")
 Image.Size = UDim2.new(0, 40, 0, 40)
 Image.Position = UDim2.new(0, 10, 0.5, -20)
-Image.Image = "rbxassetid://80617699532625"
+Image.Image = "rbxassetid://0"
 Image.BackgroundTransparency = 1
 Image.Parent = BadgeFrame
 
@@ -61,7 +61,7 @@ Image.Parent = BadgeFrame
 local TextLabel = Instance.new("TextLabel")
 TextLabel.Size = UDim2.new(1, -60, 1, 0)
 TextLabel.Position = UDim2.new(0, 60, 0, 0)
-TextLabel.Text = "SUB-ZERO"
+TextLabel.Text = "JUN"
 TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextLabel.TextSize = 14
 TextLabel.BackgroundTransparency = 1
@@ -91,5 +91,26 @@ wait(3)
 -- Анимация исчезновения
 BadgeFrame:TweenPosition(UDim2.new(1, 10, 1, newBadgeOffset), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.5, true)
 wait(0.5)
+
+BadgeFrame:Destroy()
+
+-- Изменение цвета всех партикл эммитеров на красный, кроме тех, у которых цвет черный
+local function changeParticleColorsToRedExceptBlack()
+    -- Ищем все партикл эммитеры в игре
+    local particles = game:GetDescendants()
+    
+    for _, part in ipairs(particles) do
+        if part:IsA("ParticleEmitter") then
+            -- Проверка, если текущий цвет не черный
+            local emitterColor = part.Color
+            if emitterColor.Keypoints[1].Value ~= Color3.fromRGB(0, 0, 0) then
+                part.Color = ColorSequence.new(Color3.fromRGB(255, 0, 0))
+            end
+        end
+    end
+end
+
+-- Вызываем функцию для изменения цвета
+changeParticleColorsToRedExceptBlack()
 
 BadgeFrame:Destroy()
