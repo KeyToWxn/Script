@@ -1,8 +1,6 @@
 local Player = game:GetService("Players").LocalPlayer
 local GUI = Player:WaitForChild("PlayerGui")
 
-task.wait(2)
-
 -- Обновляем текст в MagicHealth
 GUI.ScreenGui.MagicHealth.TextLabel.Text = "SUB-ZERO SLASH STORM"
 GUI.ScreenGui.MagicHealth.Health.Bar.Bar.ImageColor3 = Color3.new(0, 228, 255)
