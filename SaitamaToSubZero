@@ -2,7 +2,7 @@ local Player = game:GetService("Players").LocalPlayer
 local GUI = Player:WaitForChild("PlayerGui")
 
 -- Обновляем текст в MagicHealth
-GUI.ScreenGui.MagicHealth.TextLabel.Text = "SUB-ZERO SLASH STORM"
+GUI.ScreenGui.MagicHealth.TextLabel.Text = "PERMAFROST"
 GUI.ScreenGui.MagicHealth.Health.Bar.Bar.ImageColor3 = Color3.new(0, 228, 255)
 
 -- Создаем GUI для бейджа, если его нет
